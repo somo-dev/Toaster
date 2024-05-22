@@ -1,14 +1,36 @@
 import "./App.css";
-import Notification from "./compnents/notification";
+import useNotification from "./hooks/use-notification";
 
 function App() {
+  const { NotificationComponent, triggerNotification } =
+    useNotification("bottom-right");
   return (
     <>
-      <Notification
-        type="success"
-        message="New Notification"
-        onClose={() => {}}
-      />
+      <button
+        onClick={() =>
+          triggerNotification({
+            type: "success",
+            message: "File downloaded successfully",
+            visible: true,
+            duration: 3000,
+          })
+        }
+      >
+        Success
+      </button>
+      <button
+        onClick={() =>
+          triggerNotification({
+            type: "error",
+            message: "Sorry! Try again later",
+            visible: true,
+            duration: 3000,
+          })
+        }
+      >
+        Error
+      </button>
+      {NotificationComponent}
     </>
   );
 }

@@ -8,17 +8,20 @@ import {
 } from "react-icons/ai";
 import "./notification.css";
 
-interface NotificationPropsType {
+export interface NotificationPropsType {
   type: string;
   message: string;
-  onClose: () => void;
+  visible: boolean;
+  duration?: number;
+  onClose?: () => void;
 }
+const iconStyles = { marginRight: "10px" };
 
 const icons = {
-  success: <AiOutlineCheckCircle />,
-  info: <AiOutlineInfoCircle />,
-  warning: <AiOutlineWarning />,
-  error: <AiOutlineCloseCircle />,
+  success: <AiOutlineCheckCircle style={iconStyles} />,
+  info: <AiOutlineInfoCircle style={iconStyles} />,
+  warning: <AiOutlineWarning style={iconStyles} />,
+  error: <AiOutlineCloseCircle style={iconStyles} />,
 };
 
 const Notification: FC<NotificationPropsType> = ({
@@ -27,14 +30,10 @@ const Notification: FC<NotificationPropsType> = ({
   onClose,
 }) => {
   return (
-    <div>
+    <div className={`notification ${type}`}>
       {icons[type as keyof typeof icons]}
       {message}
-      <AiOutlineClose
-        color="white"
-        className="closeBtn"
-        onClick={() => onClose()}
-      />
+      <AiOutlineClose color="white" className="closeBtn" onClick={onClose} />
     </div>
   );
 };
