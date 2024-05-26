@@ -12,10 +12,17 @@ export interface NotificationPropsType {
   type: string;
   message: string;
   visible: boolean;
+  animation: keyof typeof animations;
   duration?: number;
   onClose?: () => void;
 }
 const iconStyles = { marginRight: "10px" };
+
+const animations = {
+  fade: "fadeIn",
+  pop: "popUp",
+  slide: "slideIn",
+};
 
 const icons = {
   success: <AiOutlineCheckCircle style={iconStyles} />,
@@ -26,11 +33,12 @@ const icons = {
 
 const Notification: FC<NotificationPropsType> = ({
   type = "info",
+  animation = "slide",
   message,
   onClose,
 }) => {
   return (
-    <div className={`notification ${type}`}>
+    <div className={`notification ${type} ${animations[animation]}`}>
       {icons[type as keyof typeof icons]}
       {message}
       <AiOutlineClose color="white" className="closeBtn" onClick={onClose} />

@@ -17,7 +17,7 @@ const useNotification = (position = "bottom-right") => {
         clearTimeout(timerRef.current);
       }
       setNotification(notificationProps);
-      timerRef.current = window.setTimeout(() => {
+      timerRef.current = setTimeout(() => {
         setNotification({
           type: "",
           message: "",
